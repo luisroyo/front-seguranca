@@ -14,12 +14,12 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📈 PROGRESSO GERAL
 
-**Progresso Total:** 55%  
+**Progresso Total:** 65%  
 **Fase Atual:** Foundation (Semanas 1-4)  
-**Tempo Estimado para Conclusão:** 8-12 semanas  
+**Tempo Estimado para Conclusão:** 6-10 semanas  
 
 ### 📊 Métricas de Progresso
-- **Componentes Criados:** 15/50 (30%)
+- **Componentes Criados:** 18/50 (36%)
 - **Páginas Implementadas:** 7/15 (47%)
 - **Tipos TypeScript:** 15/45 (33%)
 - **Testes Implementados:** 15/100 (15%)
@@ -77,6 +77,7 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ### 🎨 Design System
 - [x] **Componentes Adicionais** - Select, Modal, Table, Toast, Tabs implementados
+- [x] **Formulários CRUD** - RondaForm, OcorrenciaForm, UsuarioForm implementados
 - [ ] **Sistema de Cores** - Paleta completa e variáveis CSS
 - [ ] **Tipografia** - Escala de fontes e hierarquia
 - [ ] **Animações** - Framer Motion e transições
@@ -92,10 +93,10 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 ## ⏳ PRÓXIMAS TAREFAS
 
 ### 📱 Páginas de Gestão
-- [x] **Gestão de Rondas** - Listagem, filtros e ações básicas
-- [x] **Gestão de Ocorrências** - Listagem, filtros e ações básicas
-- [x] **Administração** - Usuários, colaboradores e condomínios
-- [ ] **Formulários CRUD** - Criação e edição de registros
+- [x] **Gestão de Rondas** - Listagem, filtros, ações e formulários CRUD
+- [x] **Gestão de Ocorrências** - Listagem, filtros, ações e formulários CRUD
+- [x] **Administração** - Usuários, colaboradores e condomínios com formulários CRUD
+- [x] **Formulários CRUD** - Criação e edição de registros implementados
 - [ ] **Rondas em Tempo Real** - Monitoramento ativo
 
 ### 🧪 Qualidade e Testes
@@ -131,7 +132,7 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📅 CRONOGRAMA REVISADO
 
-### **Fase 1: Foundation** (Semanas 1-4) - **55% Concluído**
+### **Fase 1: Foundation** (Semanas 1-4) - **65% Concluído**
 - [x] Setup do projeto Next.js + TypeScript
 - [x] Configuração do Tailwind CSS e componentes base
 - [x] Sistema de roteamento App Router
@@ -140,6 +141,7 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - [x] **Configuração do MSW para mock de API**
 - [x] Middleware de proteção de rotas
 - [x] **Páginas de gestão (Rondas, Ocorrências, Administração)**
+- [x] **Formulários CRUD completos para todas as entidades**
 - [x] **Configuração de testes com Vitest**
 - [ ] Configuração do Storybook
 
@@ -267,6 +269,12 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
 - **Mensagem**: "feat: implementa páginas de gestão (rondas, ocorrências, administração) e configura testes com Vitest"
 - **Arquivos**: 13 arquivos alterados (4.046 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Formulários CRUD ✅ (cef02d2)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: implementa formulários CRUD para rondas, ocorrências e usuários"
+- **Arquivos**: 8 arquivos alterados (1.574 inserções)
 - **Status**: ✅ Enviado para GitHub (main branch)
 
 ## 🔧 CONFIGURAÇÃO GIT
