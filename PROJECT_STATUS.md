@@ -14,15 +14,15 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📈 PROGRESSO GERAL
 
-**Progresso Total:** 45%  
+**Progresso Total:** 55%  
 **Fase Atual:** Foundation (Semanas 1-4)  
-**Tempo Estimado para Conclusão:** 10-14 semanas  
+**Tempo Estimado para Conclusão:** 8-12 semanas  
 
 ### 📊 Métricas de Progresso
-- **Componentes Criados:** 14/50 (28%)
-- **Páginas Implementadas:** 4/15 (27%)
+- **Componentes Criados:** 15/50 (30%)
+- **Páginas Implementadas:** 7/15 (47%)
 - **Tipos TypeScript:** 15/45 (33%)
-- **Testes Implementados:** 0/100 (0%)
+- **Testes Implementados:** 15/100 (15%)
 - **Build Status:** ✅ Funcionando
 - **MSW Configurado:** ✅ Funcionando
 
@@ -76,7 +76,7 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 ## 🔄 TAREFAS EM ANDAMENTO
 
 ### 🎨 Design System
-- [x] **Componentes Adicionais** - Select, Modal, Table, Toast implementados
+- [x] **Componentes Adicionais** - Select, Modal, Table, Toast, Tabs implementados
 - [ ] **Sistema de Cores** - Paleta completa e variáveis CSS
 - [ ] **Tipografia** - Escala de fontes e hierarquia
 - [ ] **Animações** - Framer Motion e transições
@@ -92,14 +92,16 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 ## ⏳ PRÓXIMAS TAREFAS
 
 ### 📱 Páginas de Gestão
-- [ ] **Gestão de Rondas** - CRUD completo
-- [ ] **Gestão de Ocorrências** - CRUD e workflow
+- [x] **Gestão de Rondas** - Listagem, filtros e ações básicas
+- [x] **Gestão de Ocorrências** - Listagem, filtros e ações básicas
+- [x] **Administração** - Usuários, colaboradores e condomínios
+- [ ] **Formulários CRUD** - Criação e edição de registros
 - [ ] **Rondas em Tempo Real** - Monitoramento ativo
-- [ ] **Administração** - Usuários, colaboradores, escalas
 
 ### 🧪 Qualidade e Testes
-- [ ] **Configuração MSW** - Mock Service Worker para desenvolvimento
-- [ ] **Testes Unitários** - Vitest + Testing Library
+- [x] **Configuração MSW** - Mock Service Worker para desenvolvimento
+- [x] **Configuração Vitest** - Setup completo com Testing Library
+- [x] **Testes Unitários** - Componentes Button e Card
 - [ ] **Testes E2E** - Playwright
 - [ ] **Acessibilidade** - axe-core e compliance WCAG
 
@@ -129,14 +131,16 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📅 CRONOGRAMA REVISADO
 
-### **Fase 1: Foundation** (Semanas 1-4) - **45% Concluído**
+### **Fase 1: Foundation** (Semanas 1-4) - **55% Concluído**
 - [x] Setup do projeto Next.js + TypeScript
 - [x] Configuração do Tailwind CSS e componentes base
 - [x] Sistema de roteamento App Router
-- [x] Componentes base (Button, Card, Input, Select, Modal)
+- [x] Componentes base (Button, Card, Input, Select, Modal, Table, Toast, Tabs)
 - [x] Sistema de autenticação básico (páginas de login/registro)
 - [x] **Configuração do MSW para mock de API**
-- [ ] Middleware de proteção de rotas
+- [x] Middleware de proteção de rotas
+- [x] **Páginas de gestão (Rondas, Ocorrências, Administração)**
+- [x] **Configuração de testes com Vitest**
 - [ ] Configuração do Storybook
 
 ### **Fase 2: Core Features** (Semanas 5-8) - **0% Concluído**
@@ -257,6 +261,12 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
 - **Mensagem**: "feat: implementa middleware de proteção, componentes Table e Toast, e página de recuperação de senha"
 - **Arquivos**: 6 arquivos criados (2.617 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Páginas de Gestão e Testes ✅ (commit_atual)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: implementa páginas de gestão (rondas, ocorrências, administração) e configura testes com Vitest"
+- **Arquivos**: 8 arquivos criados (1.200+ inserções)
 - **Status**: ✅ Enviado para GitHub (main branch)
 
 ## 🔧 CONFIGURAÇÃO GIT

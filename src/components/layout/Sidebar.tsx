@@ -21,14 +21,9 @@ import {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
   { name: 'Rondas', href: '/rondas', icon: Shield },
-  { name: 'Rondas Tempo Real', href: '/rondas-tempo-real', icon: Clock },
   { name: 'Ocorrências', href: '/ocorrencias', icon: AlertTriangle },
+  { name: 'Administração', href: '/admin', icon: Settings, admin: true },
   { name: 'Relatórios', href: '/relatorios', icon: FileText },
-  { name: 'Usuários', href: '/admin/users', icon: Users, admin: true },
-  { name: 'Colaboradores', href: '/admin/colaboradores', icon: Users, admin: true },
-  { name: 'Escalas', href: '/admin/escalas', icon: Clock, admin: true },
-  { name: 'Ferramentas', href: '/admin/tools', icon: Settings, admin: true },
-  { name: 'Analytics', href: '/admin/dashboard', icon: BarChart3, admin: true },
 ]
 
 export function Sidebar() {
