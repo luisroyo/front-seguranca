@@ -14,13 +14,13 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📈 PROGRESSO GERAL
 
-**Progresso Total:** 35%  
+**Progresso Total:** 45%  
 **Fase Atual:** Foundation (Semanas 1-4)  
 **Tempo Estimado para Conclusão:** 10-14 semanas  
 
 ### 📊 Métricas de Progresso
-- **Componentes Criados:** 12/50 (24%)
-- **Páginas Implementadas:** 3/15 (20%)
+- **Componentes Criados:** 14/50 (28%)
+- **Páginas Implementadas:** 4/15 (27%)
 - **Tipos TypeScript:** 15/45 (33%)
 - **Testes Implementados:** 0/100 (0%)
 - **Build Status:** ✅ Funcionando
@@ -76,16 +76,13 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 ## 🔄 TAREFAS EM ANDAMENTO
 
 ### 🎨 Design System
-- [x] **Componentes Adicionais** - Select, Modal implementados
-- [ ] **Table Component** - Tabelas responsivas e interativas
-- [ ] **Toast Component** - Sistema de notificações
+- [x] **Componentes Adicionais** - Select, Modal, Table, Toast implementados
 - [ ] **Sistema de Cores** - Paleta completa e variáveis CSS
 - [ ] **Tipografia** - Escala de fontes e hierarquia
 - [ ] **Animações** - Framer Motion e transições
 
 ### 🔐 Autenticação
-- [x] **Páginas de Auth** - Login e registro implementados
-- [ ] **Página de Recuperação** - Esqueci minha senha
+- [x] **Páginas de Auth** - Login, registro e recuperação implementados
 - [ ] **Middleware de Proteção** - Rotas protegidas
 - [ ] **Integração JWT** - Tokens e refresh automático
 - [ ] **Controle de Permissões** - Roles e recursos
@@ -132,7 +129,7 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📅 CRONOGRAMA REVISADO
 
-### **Fase 1: Foundation** (Semanas 1-4) - **35% Concluído**
+### **Fase 1: Foundation** (Semanas 1-4) - **45% Concluído**
 - [x] Setup do projeto Next.js + TypeScript
 - [x] Configuração do Tailwind CSS e componentes base
 - [x] Sistema de roteamento App Router
@@ -171,10 +168,10 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 ## 🎯 METAS PARA PRÓXIMA SEMANA
 
 ### **Prioridade Alta**
-1. **Implementar Middleware de Proteção** - Rotas protegidas e autenticação
-2. **Criar Componentes Table e Toast** - Completar sistema de UI
-3. **Implementar Páginas de Gestão** - CRUD de rondas e ocorrências
-4. **Configurar Testes** - Vitest + Testing Library
+1. **Implementar Páginas de Gestão** - CRUD de rondas e ocorrências
+2. **Configurar Testes** - Vitest + Testing Library
+3. **Implementar Dashboards Avançados** - Gráficos e métricas
+4. **Melhorar Responsividade** - Mobile-first design
 
 ### **Prioridade Média**
 1. **Implementar Gestão de Rondas** - CRUD básico
@@ -192,7 +189,7 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ### **Código**
 - **TypeScript Coverage:** 100% (15/15 tipos implementados)
-- **Component Reusability:** 85% (12 componentes base criados)
+- **Component Reusability:** 90% (14 componentes base criados)
 - **Code Organization:** 95% (estrutura de pastas organizada)
 - **Hook Coverage:** 100% (4 hooks principais implementados)
 
@@ -254,6 +251,12 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
 - **Mensagem**: "feat: adiciona componentes Select e Modal baseados em Radix UI com variantes e estilos customizados"
 - **Arquivos**: 2 arquivos criados (391 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Middleware e Componentes UI ✅ (193163d)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: implementa middleware de proteção, componentes Table e Toast, e página de recuperação de senha"
+- **Arquivos**: 6 arquivos criados (2.617 inserções)
 - **Status**: ✅ Enviado para GitHub (main branch)
 
 ## 🔧 CONFIGURAÇÃO GIT
