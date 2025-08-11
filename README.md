@@ -79,6 +79,25 @@ npm run lint         # Linting
 npm run type-check   # Verificação de tipos
 ```
 
+## 📝 Padrões de Commit
+
+Este projeto utiliza commits em **português** para facilitar a compreensão da equipe:
+
+- **feat**: Nova funcionalidade
+- **fix**: Correção de bug  
+- **docs**: Documentação
+- **style**: Formatação de código
+- **refactor**: Refatoração de código
+- **test**: Adição de testes
+- **chore**: Tarefas de manutenção
+
+### Exemplos de Commits
+```bash
+git commit -m "feat: adiciona sistema de autenticação JWT"
+git commit -m "fix: corrige erro de validação no formulário"
+git commit -m "docs: atualiza documentação da API"
+```
+
 ## 📁 Estrutura do Projeto
 
 ```

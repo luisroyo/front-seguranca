@@ -203,14 +203,39 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ---
 
+## 📝 HISTÓRICO DE COMMITS
+
+### Commit Inicial ✅ (19779f3)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "Configuração inicial do projeto com Next.js, TypeScript, Tailwind CSS e componentes básicos"
+- **Arquivos**: 38 arquivos criados (11.634 linhas)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+## 🔧 CONFIGURAÇÃO GIT
+
+### Configuração de Idiomas
+- **Commits**: Português 🇧🇷
+- **Branch padrão**: main
+- **Remote**: origin (https://github.com/luisroyo/front-seguranca.git)
+
+### Padrões de Commit (Português)
+- **feat**: Nova funcionalidade
+- **fix**: Correção de bug
+- **docs**: Documentação
+- **style**: Formatação de código
+- **refactor**: Refatoração de código
+- **test**: Adição de testes
+- **chore**: Tarefas de manutenção
+
 ## 📝 NOTAS IMPORTANTES
 
 1. **Desenvolvimento Independente** - MSW será configurado para permitir desenvolvimento sem dependência do backend
 2. **Componentes Reutilizáveis** - Foco em criar componentes que podem ser usados em múltiplas páginas
 3. **Performance** - Otimizações serão implementadas desde o início
 4. **Acessibilidade** - Será priorizada em todas as implementações
+5. **Commits em Português** - Todos os commits devem seguir o padrão em português para facilitar a compreensão da equipe
 
 ---
 
 **Documento mantido pela equipe de desenvolvimento**  
-**Última atualização:** {{ new Date().toLocaleDateString('pt-BR') }}
+**Última atualização:** $(Get-Date -Format "dd/MM/yyyy HH:mm")
