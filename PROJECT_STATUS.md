@@ -263,10 +263,10 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - **Arquivos**: 6 arquivos criados (2.617 inserções)
 - **Status**: ✅ Enviado para GitHub (main branch)
 
-### Páginas de Gestão e Testes ✅ (commit_atual)
+### Páginas de Gestão e Testes ✅ (e0e7be6)
 - **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
 - **Mensagem**: "feat: implementa páginas de gestão (rondas, ocorrências, administração) e configura testes com Vitest"
-- **Arquivos**: 8 arquivos criados (1.200+ inserções)
+- **Arquivos**: 13 arquivos alterados (4.046 inserções)
 - **Status**: ✅ Enviado para GitHub (main branch)
 
 ## 🔧 CONFIGURAÇÃO GIT
