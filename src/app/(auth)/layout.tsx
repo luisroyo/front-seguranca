@@ -1,18 +1,18 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Autenticação - Sistema de Segurança',
-  description: 'Páginas de autenticação do Sistema de Gestão de Segurança',
+    title: 'Autenticação - Sistema de Segurança',
+    description: 'Páginas de autenticação do Sistema de Gestão de Segurança',
 }
 
 export default function AuthLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-      {children}
-    </div>
-  )
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+            {children}
+        </div>
+    )
 }

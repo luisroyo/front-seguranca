@@ -1,118 +1,79 @@
 import { http, HttpResponse } from 'msw'
-import {
-    User,
-    Condominio,
-    Colaborador,
-    Ocorrencia,
-    Ronda,
-    DashboardData,
-    DashboardStats,
-    PaginatedResponse
+import { 
+  User, 
+  Condominio, 
+  Colaborador, 
+  Ocorrencia, 
+  Ronda,
+  PaginatedResponse 
 } from '@/types/api'
-import { DashboardOcorrenciaRecente, DashboardRondaRecente } from '@/types/dashboard'
+import { DashboardData, DashboardStats, DashboardOcorrenciaRecente, DashboardRondaRecente } from '@/types/dashboard'
 
 // Dados mockados
 const mockUsers: User[] = [
     {
         id: 1,
-        nome: 'João Silva',
+        username: 'joao.silva',
         email: 'joao.silva@seguranca.com',
-        telefone: '+55 11 99999-9999',
-        role: 'admin',
-        ativo: true,
-        created_at: '2024-01-15T10:00:00Z',
-        updated_at: '2024-01-15T10:00:00Z'
+        is_approved: true,
+        is_admin: true,
+        is_supervisor: true,
+        date_registered: '2024-01-15',
+        last_login: '2024-12-19T10:30:00Z'
     },
     {
         id: 2,
-        nome: 'Maria Santos',
+        username: 'maria.santos',
         email: 'maria.santos@seguranca.com',
-        telefone: '+55 11 88888-8888',
-        role: 'supervisor',
-        ativo: true,
-        created_at: '2024-01-10T10:00:00Z',
-        updated_at: '2024-01-10T10:00:00Z'
+        is_approved: true,
+        is_admin: false,
+        is_supervisor: true,
+        date_registered: '2024-02-20',
+        last_login: '2024-12-19T09:15:00Z'
     },
     {
         id: 3,
-        nome: 'Pedro Costa',
+        username: 'pedro.costa',
         email: 'pedro.costa@seguranca.com',
-        telefone: '+55 11 77777-7777',
-        role: 'colaborador',
-        ativo: true,
-        created_at: '2024-01-05T10:00:00Z',
-        updated_at: '2024-01-05T10:00:00Z'
+        is_approved: true,
+        is_admin: false,
+        is_supervisor: false,
+        date_registered: '2024-03-10',
+        last_login: '2024-12-19T08:45:00Z'
     }
 ]
 
 const mockCondominios: Condominio[] = [
     {
         id: 1,
-        nome: 'Residencial Parque das Flores',
-        endereco: 'Rua das Flores, 123',
-        bairro: 'Centro',
-        cidade: 'São Paulo',
-        estado: 'SP',
-        cep: '01234-567',
-        numero_residentes: 150,
-        area_total: 5000.0,
-        created_at: '2024-01-01T10:00:00Z',
-        updated_at: '2024-01-01T10:00:00Z'
+        nome: 'Residencial Parque das Flores'
     },
     {
         id: 2,
-        nome: 'Condomínio Solar',
-        endereco: 'Av. do Sol, 456',
-        bairro: 'Vila Nova',
-        cidade: 'São Paulo',
-        estado: 'SP',
-        cep: '04567-890',
-        numero_residentes: 80,
-        area_total: 3000.0,
-        created_at: '2024-01-02T10:00:00Z',
-        updated_at: '2024-01-02T10:00:00Z'
+        nome: 'Condomínio Solar'
     },
     {
         id: 3,
-        nome: 'Edifício Horizonte',
-        endereco: 'Rua Horizonte, 789',
-        bairro: 'Jardins',
-        cidade: 'São Paulo',
-        estado: 'SP',
-        cep: '01234-123',
-        numero_residentes: 120,
-        area_total: 4000.0,
-        created_at: '2024-01-03T10:00:00Z',
-        updated_at: '2024-01-03T10:00:00Z'
+        nome: 'Edifício Horizonte'
     }
 ]
 
 const mockColaboradores: Colaborador[] = [
     {
         id: 1,
-        nome: 'Carlos Oliveira',
-        cpf: '123.456.789-00',
-        telefone: '+55 11 66666-6666',
-        email: 'carlos.oliveira@seguranca.com',
+        nome_completo: 'Carlos Oliveira',
         cargo: 'Vigilante',
-        turno: 'noturno',
-        condominio_id: 1,
-        ativo: true,
-        created_at: '2024-01-01T10:00:00Z',
-        updated_at: '2024-01-01T10:00:00Z'
+        matricula: 'VIG001',
+        data_admissao: '2024-01-01',
+        status: 'ativo'
     },
     {
         id: 2,
-        nome: 'Ana Paula',
-        cpf: '987.654.321-00',
-        telefone: '+55 11 55555-5555',
-        email: 'ana.paula@seguranca.com',
+        nome_completo: 'Ana Paula',
         cargo: 'Supervisor',
-        turno: 'diurno',
-        condominio_id: 2,
-        ativo: true,
-        created_at: '2024-01-02T10:00:00Z',
-        updated_at: '2024-01-02T10:00:00Z'
+        matricula: 'SUP001',
+        data_admissao: '2024-01-02',
+        status: 'ativo'
     }
 ]
 

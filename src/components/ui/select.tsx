@@ -3,42 +3,9 @@
 import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown, ChevronUp } from 'lucide-react'
-import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-const selectVariants = cva(
-  'flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        default: 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20',
-        error: 'border-red-500 focus:border-red-500 focus:ring-red-500/20',
-        success: 'border-green-500 focus:border-green-500 focus:ring-green-500/20',
-        warning: 'border-yellow-500 focus:border-yellow-500 focus:ring-yellow-500/20',
-      },
-      size: {
-        default: 'h-10 px-3 py-2',
-        sm: 'h-8 px-2 py-1 text-xs',
-        lg: 'h-12 px-4 py-3 text-base',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
-  }
-)
-
-const Select = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> &
-    VariantProps<typeof selectVariants>
->(({ className, children, variant, size, ...props }, ref) => (
-  <SelectPrimitive.Root ref={ref} {...props}>
-    {children}
-  </SelectPrimitive.Root>
-))
-Select.displayName = SelectPrimitive.Root.displayName
+const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
@@ -46,12 +13,14 @@ const SelectValue = SelectPrimitive.Value
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
-    VariantProps<typeof selectVariants>
->(({ className, children, variant, size, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn(selectVariants({ variant, size, className }))}
+    className={cn(
+      'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+      className
+    )}
     {...props}
   >
     {children}
@@ -94,8 +63,7 @@ const SelectScrollDownButton = React.forwardRef<
     <ChevronDown className="h-4 w-4" />
   </SelectPrimitive.ScrollDownButton>
 ))
-SelectScrollDownButton.displayName =
-  SelectPrimitive.ScrollDownButton.displayName
+SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
