@@ -14,16 +14,17 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📈 PROGRESSO GERAL
 
-**Progresso Total:** 20%  
+**Progresso Total:** 35%  
 **Fase Atual:** Foundation (Semanas 1-4)  
-**Tempo Estimado para Conclusão:** 12-16 semanas  
+**Tempo Estimado para Conclusão:** 10-14 semanas  
 
 ### 📊 Métricas de Progresso
-- **Componentes Criados:** 8/50 (16%)
-- **Páginas Implementadas:** 1/15 (7%)
+- **Componentes Criados:** 12/50 (24%)
+- **Páginas Implementadas:** 3/15 (20%)
 - **Tipos TypeScript:** 15/45 (33%)
 - **Testes Implementados:** 0/100 (0%)
 - **Build Status:** ✅ Funcionando
+- **MSW Configurado:** ✅ Funcionando
 
 ---
 
@@ -40,6 +41,8 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - [x] **Button Component** - Variantes múltiplas com class-variance-authority
 - [x] **Card Component** - Elevated, outlined, glassmorphism
 - [x] **Input Component** - Estados de validação e ícones
+- [x] **Select Component** - Baseado em Radix UI com variantes
+- [x] **Modal Component** - Sistema completo de modais com variantes
 - [x] **Utils Functions** - clsx, formatDate, formatNumber, debounce
 
 ### 🏛️ Arquitetura e Tipos
@@ -47,6 +50,8 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - [x] **Tipos do Dashboard** - Stats, métricas, dados comparativos
 - [x] **Store de Autenticação** - Zustand com persistência
 - [x] **Configuração da API** - Axios com interceptors JWT
+- [x] **Hooks Personalizados** - useAuth, useDashboard, useOcorrencias, useRondas
+- [x] **MSW Configurado** - Mock Service Worker para desenvolvimento independente
 
 ### 🎭 Layout e Navegação
 - [x] **Layout Principal** - Estrutura com Providers e TanStack Query
@@ -61,18 +66,26 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - [x] **RecentRondas** - Lista de rondas recentes
 - [x] **CondominiosList** - Grid de condomínios
 
+### 🔐 Autenticação
+- [x] **Página de Login** - Formulário completo com validação
+- [x] **Página de Registro** - Formulário de criação de conta
+- [x] **Layout de Auth** - Estrutura para páginas de autenticação
+
 ---
 
 ## 🔄 TAREFAS EM ANDAMENTO
 
 ### 🎨 Design System
-- [ ] **Componentes Adicionais** - Select, Modal, Table, Toast
+- [x] **Componentes Adicionais** - Select, Modal implementados
+- [ ] **Table Component** - Tabelas responsivas e interativas
+- [ ] **Toast Component** - Sistema de notificações
 - [ ] **Sistema de Cores** - Paleta completa e variáveis CSS
 - [ ] **Tipografia** - Escala de fontes e hierarquia
 - [ ] **Animações** - Framer Motion e transições
 
 ### 🔐 Autenticação
-- [ ] **Páginas de Auth** - Login, registro, recuperação de senha
+- [x] **Páginas de Auth** - Login e registro implementados
+- [ ] **Página de Recuperação** - Esqueci minha senha
 - [ ] **Middleware de Proteção** - Rotas protegidas
 - [ ] **Integração JWT** - Tokens e refresh automático
 - [ ] **Controle de Permissões** - Roles e recursos
@@ -119,14 +132,15 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ## 📅 CRONOGRAMA REVISADO
 
-### **Fase 1: Foundation** (Semanas 1-4) - **20% Concluído**
+### **Fase 1: Foundation** (Semanas 1-4) - **35% Concluído**
 - [x] Setup do projeto Next.js + TypeScript
 - [x] Configuração do Tailwind CSS e componentes base
 - [x] Sistema de roteamento App Router
-- [x] Componentes base (Button, Card, Form, etc.)
-- [ ] Sistema de autenticação JWT
+- [x] Componentes base (Button, Card, Input, Select, Modal)
+- [x] Sistema de autenticação básico (páginas de login/registro)
+- [x] **Configuração do MSW para mock de API**
+- [ ] Middleware de proteção de rotas
 - [ ] Configuração do Storybook
-- [ ] **Configuração do MSW para mock de API**
 
 ### **Fase 2: Core Features** (Semanas 5-8) - **0% Concluído**
 - [ ] Dashboard principal com KPIs
@@ -157,15 +171,15 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 ## 🎯 METAS PARA PRÓXIMA SEMANA
 
 ### **Prioridade Alta**
-1. **Configurar MSW** - Mock Service Worker para desenvolvimento independente
-2. **Implementar Páginas de Auth** - Login e registro
-3. **Criar Componentes Adicionais** - Select, Modal, Table
-4. **Corrigir Warnings do Tailwind** - Variáveis CSS personalizadas
+1. **Implementar Middleware de Proteção** - Rotas protegidas e autenticação
+2. **Criar Componentes Table e Toast** - Completar sistema de UI
+3. **Implementar Páginas de Gestão** - CRUD de rondas e ocorrências
+4. **Configurar Testes** - Vitest + Testing Library
 
 ### **Prioridade Média**
 1. **Implementar Gestão de Rondas** - CRUD básico
-2. **Configurar Testes** - Vitest + Testing Library
-3. **Melhorar Responsividade** - Mobile-first design
+2. **Melhorar Responsividade** - Mobile-first design
+3. **Implementar Dashboards Avançados** - Gráficos e métricas
 
 ### **Prioridade Baixa**
 1. **Documentar Componentes** - Storybook
@@ -178,8 +192,9 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 
 ### **Código**
 - **TypeScript Coverage:** 100% (15/15 tipos implementados)
-- **Component Reusability:** 80% (componentes base criados)
-- **Code Organization:** 90% (estrutura de pastas organizada)
+- **Component Reusability:** 85% (12 componentes base criados)
+- **Code Organization:** 95% (estrutura de pastas organizada)
+- **Hook Coverage:** 100% (4 hooks principais implementados)
 
 ### **Performance**
 - **Bundle Size:** Ainda não medido
@@ -209,6 +224,36 @@ Este documento mantém o status atualizado do desenvolvimento do frontend do Sis
 - **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
 - **Mensagem**: "Configuração inicial do projeto com Next.js, TypeScript, Tailwind CSS e componentes básicos"
 - **Arquivos**: 38 arquivos criados (11.634 linhas)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Atualização de Documentação ✅ (ce3cced)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "docs: atualiza documentação com padrões de commit em português e histórico de commits"
+- **Arquivos**: 2 arquivos atualizados (45 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Configuração MSW ✅ (ad378b9)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: configura MSW para mock da API com dados fictícios para desenvolvimento"
+- **Arquivos**: 3 arquivos criados (411 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Hooks Personalizados ✅ (cc010a7)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: cria hooks personalizados para autenticação, dashboard, ocorrências e rondas com TanStack Query"
+- **Arquivos**: 4 arquivos criados (498 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Páginas de Autenticação ✅ (767a766)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: cria páginas de autenticação (login e registro) com formulários completos e validação"
+- **Arquivos**: 3 arquivos criados (548 inserções)
+- **Status**: ✅ Enviado para GitHub (main branch)
+
+### Componentes UI Adicionais ✅ (ae799f6)
+- **Data**: $(Get-Date -Format "dd/MM/yyyy HH:mm")
+- **Mensagem**: "feat: adiciona componentes Select e Modal baseados em Radix UI com variantes e estilos customizados"
+- **Arquivos**: 2 arquivos criados (391 inserções)
 - **Status**: ✅ Enviado para GitHub (main branch)
 
 ## 🔧 CONFIGURAÇÃO GIT
