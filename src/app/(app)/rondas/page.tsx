@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Search, Filter, Calendar, MapPin, Clock } from 'lucide-react'
+import { Plus, Search, Filter, Calendar, MapPin, Clock, Edit, Trash2, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -10,23 +10,82 @@ import { Modal } from '@/components/ui/modal'
 import { Select } from '@/components/ui/select'
 import { useRondas } from '@/hooks/useRondas'
 import { Ronda } from '@/types/api'
+import { RondaForm } from '@/components/forms/RondaForm'
 
 export default function RondasPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('todos')
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
   const [selectedRonda, setSelectedRonda] = useState<Ronda | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   
   const { rondas, isLoading, error } = useRondas()
   
   const filteredRondas = rondas?.filter(ronda => {
     const matchesSearch = ronda.condominio.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         ronda.guarda.nome.toLowerCase().includes(searchTerm.toLowerCase())
+                         ronda.guarda.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         ronda.rota.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesStatus = statusFilter === 'todos' || ronda.status === statusFilter
     return matchesSearch && matchesStatus
   }) || []
 
-  const handleCreateRonda = () => {
+  const handleCreateRonda = async (data: any) => {
+    setIsLoading(true)
+    try {
+      // TODO: Implementar chamada para API
+      console.log('Criando ronda:', data)
+      setIsCreateModalOpen(false)
+      // Recarregar dados
+    } catch (error) {
+      console.error('Erro ao criar ronda:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleEditRonda = async (data: any) => {
+    setIsLoading(true)
+    try {
+      // TODO: Implementar chamada para API
+      console.log('Editando ronda:', data)
+      setIsEditModalOpen(false)
+      setSelectedRonda(null)
+      // Recarregar dados
+    } catch (error) {
+      console.error('Erro ao editar ronda:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDeleteRonda = async (ronda: Ronda) => {
+    if (confirm('Tem certeza que deseja excluir esta ronda?')) {
+      setIsLoading(true)
+      try {
+        // TODO: Implementar chamada para API
+        console.log('Excluindo ronda:', ronda.id)
+        // Recarregar dados
+      } catch (error) {
+        console.error('Erro ao excluir ronda:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  }
+
+  const openEditModal = (ronda: Ronda) => {
+    setSelectedRonda(ronda)
+    setIsEditModalOpen(true)
+  }
+
+  const openViewModal = (ronda: Ronda) => {
+    setSelectedRonda(ronda)
+    setIsViewModalOpen(true)
+  }
+
+  const openCreateModal = () => {
     setIsCreateModalOpen(true)
   }
 
@@ -66,7 +125,7 @@ export default function RondasPage() {
           <h1 className="text-2xl font-bold text-gray-900">Gestão de Rondas</h1>
           <p className="text-gray-600">Gerencie as rondas de segurança dos condomínios</p>
         </div>
-        <Button onClick={handleCreateRonda} className="w-full sm:w-auto">
+        <Button onClick={openCreateModal} className="w-full sm:w-auto">
           <Plus className="w-4 h-4 mr-2" />
           Nova Ronda
         </Button>
@@ -174,19 +233,28 @@ export default function RondasPage() {
                   <Table.Cell>
                     <div className="flex items-center gap-2">
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        onClick={() => handleEditRonda(ronda)}
+                        onClick={() => openViewModal(ronda)}
+                        className="h-8 w-8 p-0"
                       >
-                        Editar
+                        <Eye className="w-4 h-4" />
                       </Button>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        onClick={() => handleDeleteRonda(ronda.id)}
-                        className="text-red-600 hover:text-red-700"
+                        onClick={() => openEditModal(ronda)}
+                        className="h-8 w-8 p-0"
                       >
-                        Excluir
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteRonda(ronda)}
+                        className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </Table.Cell>
@@ -203,43 +271,104 @@ export default function RondasPage() {
         )}
       </Card>
 
-      {/* Modal de Criação/Edição */}
+      {/* Modal de Criação */}
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => {
           setIsCreateModalOpen(false)
           setSelectedRonda(null)
         }}
-        title={selectedRonda ? 'Editar Ronda' : 'Nova Ronda'}
+        title="Nova Ronda"
+        size="lg"
+      >
+        <RondaForm
+          ronda={null}
+          onSubmit={handleCreateRonda}
+          onCancel={() => setIsCreateModalOpen(false)}
+          isLoading={isLoading}
+        />
+      </Modal>
+
+      {/* Modal de Edição */}
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false)
+          setSelectedRonda(null)
+        }}
+        title="Editar Ronda"
         size="lg"
       >
         <RondaForm
           ronda={selectedRonda}
-          onSuccess={() => {
-            setIsCreateModalOpen(false)
-            setSelectedRonda(null)
-          }}
+          onSubmit={handleEditRonda}
+          onCancel={() => setIsEditModalOpen(false)}
+          isLoading={isLoading}
         />
+      </Modal>
+
+      {/* Modal de Visualização */}
+      <Modal
+        isOpen={isViewModalOpen}
+        onClose={() => {
+          setIsViewModalOpen(false)
+          setSelectedRonda(null)
+        }}
+        title="Detalhes da Ronda"
+        size="lg"
+      >
+        {selectedRonda && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Condomínio</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedRonda.condominio.nome}</p>
+                <p className="text-sm text-gray-600">{selectedRonda.condominio.endereco}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Guarda</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedRonda.guarda.nome}</p>
+                <p className="text-sm text-gray-600">{selectedRonda.guarda.email}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Data/Hora de Início</h3>
+                <p className="text-lg font-medium text-gray-900">
+                  {new Date(selectedRonda.data_hora_inicio).toLocaleDateString('pt-BR')}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {new Date(selectedRonda.data_hora_inicio).toLocaleTimeString('pt-BR')}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Data/Hora de Fim</h3>
+                <p className="text-lg font-medium text-gray-900">
+                  {new Date(selectedRonda.data_hora_fim).toLocaleDateString('pt-BR')}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {new Date(selectedRonda.data_hora_fim).toLocaleTimeString('pt-BR')}
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-500">Rota</h3>
+              <p className="text-gray-900">{selectedRonda.rota}</p>
+            </div>
+            {selectedRonda.observacoes && (
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Observações</h3>
+                <p className="text-gray-900">{selectedRonda.observacoes}</p>
+              </div>
+            )}
+            <div className="flex justify-end">
+              <Button onClick={() => setIsViewModalOpen(false)}>
+                Fechar
+              </Button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   )
 }
 
-// Componente do formulário (será implementado separadamente)
-function RondaForm({ ronda, onSuccess }: { ronda?: Ronda | null, onSuccess: () => void }) {
-  return (
-    <div className="space-y-4">
-      <p className="text-gray-600">
-        Formulário de ronda será implementado na próxima iteração
-      </p>
-      <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={onSuccess}>
-          Cancelar
-        </Button>
-        <Button onClick={onSuccess}>
-          Salvar
-        </Button>
-      </div>
-    </div>
-  )
-}
+

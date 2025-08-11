@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Search, AlertTriangle, Calendar, MapPin, Clock, User } from 'lucide-react'
+import { Plus, Search, AlertTriangle, Calendar, MapPin, Clock, User, Edit, Trash2, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -10,13 +10,17 @@ import { Modal } from '@/components/ui/modal'
 import { Select } from '@/components/ui/select'
 import { useOcorrencias } from '@/hooks/useOcorrencias'
 import { Ocorrencia } from '@/types/api'
+import { OcorrenciaForm } from '@/components/forms/OcorrenciaForm'
 
 export default function OcorrenciasPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [tipoFilter, setTipoFilter] = useState('todos')
   const [statusFilter, setStatusFilter] = useState('todos')
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
   const [selectedOcorrencia, setSelectedOcorrencia] = useState<Ocorrencia | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   
   const { ocorrencias, isLoading, error } = useOcorrencias()
   
@@ -29,7 +33,61 @@ export default function OcorrenciasPage() {
     return matchesSearch && matchesTipo && matchesStatus
   }) || []
 
-  const handleCreateOcorrencia = () => {
+  const handleCreateOcorrencia = async (data: any) => {
+    setIsLoading(true)
+    try {
+      // TODO: Implementar chamada para API
+      console.log('Criando ocorrência:', data)
+      setIsCreateModalOpen(false)
+      // Recarregar dados
+    } catch (error) {
+      console.error('Erro ao criar ocorrência:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleEditOcorrencia = async (data: any) => {
+    setIsLoading(true)
+    try {
+      // TODO: Implementar chamada para API
+      console.log('Editando ocorrência:', data)
+      setIsEditModalOpen(false)
+      setSelectedOcorrencia(null)
+      // Recarregar dados
+    } catch (error) {
+      console.error('Erro ao editar ocorrência:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDeleteOcorrencia = async (ocorrencia: Ocorrencia) => {
+    if (confirm('Tem certeza que deseja excluir esta ocorrência?')) {
+      setIsLoading(true)
+      try {
+        // TODO: Implementar chamada para API
+        console.log('Excluindo ocorrência:', ocorrencia.id)
+        // Recarregar dados
+      } catch (error) {
+        console.error('Erro ao excluir ocorrência:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  }
+
+  const openEditModal = (ocorrencia: Ocorrencia) => {
+    setSelectedOcorrencia(ocorrencia)
+    setIsEditModalOpen(true)
+  }
+
+  const openViewModal = (ocorrencia: Ocorrencia) => {
+    setSelectedOcorrencia(ocorrencia)
+    setIsViewModalOpen(true)
+  }
+
+  const openCreateModal = () => {
     setIsCreateModalOpen(true)
   }
 
@@ -111,7 +169,7 @@ export default function OcorrenciasPage() {
           <h1 className="text-2xl font-bold text-gray-900">Gestão de Ocorrências</h1>
           <p className="text-gray-600">Gerencie as ocorrências e incidentes dos condomínios</p>
         </div>
-        <Button onClick={handleCreateOcorrencia} className="w-full sm:w-auto">
+        <Button onClick={openCreateModal} className="w-full sm:w-auto">
           <Plus className="w-4 h-4 mr-2" />
           Nova Ocorrência
         </Button>
@@ -232,19 +290,28 @@ export default function OcorrenciasPage() {
                   <Table.Cell>
                     <div className="flex items-center gap-2">
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        onClick={() => handleEditOcorrencia(ocorrencia)}
+                        onClick={() => openViewModal(ocorrencia)}
+                        className="h-8 w-8 p-0"
                       >
-                        Editar
+                        <Eye className="w-4 h-4" />
                       </Button>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="sm"
-                        onClick={() => handleDeleteOcorrencia(ocorrencia.id)}
-                        className="text-red-600 hover:text-red-700"
+                        onClick={() => openEditModal(ocorrencia)}
+                        className="h-8 w-8 p-0"
                       >
-                        Excluir
+                        <Edit className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDeleteOcorrencia(ocorrencia)}
+                        className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </Table.Cell>
@@ -261,43 +328,108 @@ export default function OcorrenciasPage() {
         )}
       </Card>
 
-      {/* Modal de Criação/Edição */}
+      {/* Modal de Criação */}
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => {
           setIsCreateModalOpen(false)
           setSelectedOcorrencia(null)
         }}
-        title={selectedOcorrencia ? 'Editar Ocorrência' : 'Nova Ocorrência'}
+        title="Nova Ocorrência"
+        size="lg"
+      >
+        <OcorrenciaForm
+          ocorrencia={null}
+          onSubmit={handleCreateOcorrencia}
+          onCancel={() => setIsCreateModalOpen(false)}
+          isLoading={isLoading}
+        />
+      </Modal>
+
+      {/* Modal de Edição */}
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false)
+          setSelectedOcorrencia(null)
+        }}
+        title="Editar Ocorrência"
         size="lg"
       >
         <OcorrenciaForm
           ocorrencia={selectedOcorrencia}
-          onSuccess={() => {
-            setIsCreateModalOpen(false)
-            setSelectedOcorrencia(null)
-          }}
+          onSubmit={handleEditOcorrencia}
+          onCancel={() => setIsEditModalOpen(false)}
+          isLoading={isLoading}
         />
+      </Modal>
+
+      {/* Modal de Visualização */}
+      <Modal
+        isOpen={isViewModalOpen}
+        onClose={() => {
+          setIsViewModalOpen(false)
+          setSelectedOcorrencia(null)
+        }}
+        title="Detalhes da Ocorrência"
+        size="lg"
+      >
+        {selectedOcorrencia && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Título</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedOcorrencia.titulo}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Tipo</h3>
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTipoColor(selectedOcorrencia.tipo)}`}>
+                  {getTipoLabel(selectedOcorrencia.tipo)}
+                </span>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Condomínio</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedOcorrencia.condominio.nome}</p>
+                <p className="text-sm text-gray-600">{selectedOcorrencia.condominio.endereco}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Local</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedOcorrencia.local}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Reportado por</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedOcorrencia.reportado_por}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Data/Hora</h3>
+                <p className="text-lg font-medium text-gray-900">
+                  {new Date(selectedOcorrencia.data_ocorrencia).toLocaleDateString('pt-BR')}
+                </p>
+                <p className="text-sm text-gray-600">
+                  {new Date(selectedOcorrencia.data_ocorrencia).toLocaleTimeString('pt-BR')}
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-500">Descrição</h3>
+              <p className="text-gray-900">{selectedOcorrencia.descricao}</p>
+            </div>
+            {selectedOcorrencia.observacoes && (
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Observações</h3>
+                <p className="text-gray-900">{selectedOcorrencia.observacoes}</p>
+              </div>
+            )}
+            <div className="flex justify-end">
+              <Button onClick={() => setIsViewModalOpen(false)}>
+                Fechar
+              </Button>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   )
 }
 
-// Componente do formulário (será implementado separadamente)
-function OcorrenciaForm({ ocorrencia, onSuccess }: { ocorrencia?: Ocorrencia | null, onSuccess: () => void }) {
-  return (
-    <div className="space-y-4">
-      <p className="text-gray-600">
-        Formulário de ocorrência será implementado na próxima iteração
-      </p>
-      <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={onSuccess}>
-          Cancelar
-        </Button>
-        <Button onClick={onSuccess}>
-          Salvar
-        </Button>
-      </div>
-    </div>
-  )
-}
+

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Users, Shield, Settings, Plus, Search, UserPlus, Building, Key } from 'lucide-react'
+import { Users, Shield, Settings, Plus, Search, UserPlus, Building, Key, Edit, Trash2, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
@@ -9,48 +9,70 @@ import { Table } from '@/components/ui/table'
 import { Modal } from '@/components/ui/modal'
 import { Select } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { UsuarioForm } from '@/components/forms/UsuarioForm'
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('usuarios')
   const [searchTerm, setSearchTerm] = useState('')
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+  const [selectedUsuario, setSelectedUsuario] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   // Dados mockados para demonstração
   const usuarios = [
     {
       id: 1,
       nome: 'João Silva',
-      email: 'joao@empresa.com',
-      cargo: 'Administrador',
-      status: 'ativo',
-      ultimo_acesso: '2024-01-15T10:30:00Z'
+      email: 'joao@exemplo.com',
+      telefone: '(11) 99999-9999',
+      cpf: '123.456.789-00',
+      role: 'admin',
+      condominio_id: 1,
+      condominio: { id: 1, nome: 'Residencial Solar' },
+      ativo: true
     },
     {
       id: 2,
       nome: 'Maria Santos',
-      email: 'maria@empresa.com',
-      cargo: 'Supervisor',
-      status: 'ativo',
-      ultimo_acesso: '2024-01-15T09:15:00Z'
+      email: 'maria@exemplo.com',
+      telefone: '(11) 88888-8888',
+      cpf: '987.654.321-00',
+      role: 'gerente',
+      condominio_id: 2,
+      condominio: { id: 2, nome: 'Condomínio Verde' },
+      ativo: true
+    },
+    {
+      id: 3,
+      nome: 'Pedro Costa',
+      email: 'pedro@exemplo.com',
+      telefone: '(11) 77777-7777',
+      cpf: '456.789.123-00',
+      role: 'guarda',
+      condominio_id: 1,
+      condominio: { id: 1, nome: 'Residencial Solar' },
+      ativo: false
     }
   ]
 
   const colaboradores = [
     {
       id: 1,
-      nome: 'Pedro Costa',
-      email: 'pedro@empresa.com',
+      nome: 'Carlos Oliveira',
+      email: 'carlos@exemplo.com',
       funcao: 'Guarda',
-      condominio: 'Residencial Verde',
+      condominio: 'Residencial Solar',
       status: 'ativo',
       turno: 'Noturno'
     },
     {
       id: 2,
-      nome: 'Ana Oliveira',
-      email: 'ana@empresa.com',
-      funcao: 'Guarda',
-      condominio: 'Residencial Azul',
+      nome: 'Ana Paula',
+      email: 'ana@exemplo.com',
+      funcao: 'Porteiro',
+      condominio: 'Condomínio Verde',
       status: 'ativo',
       turno: 'Diurno'
     }
@@ -59,24 +81,78 @@ export default function AdminPage() {
   const condominios = [
     {
       id: 1,
-      nome: 'Residencial Verde',
+      nome: 'Residencial Solar',
       endereco: 'Rua das Flores, 123',
       status: 'ativo',
-      total_unidades: 120,
+      total_unidades: 50,
       responsavel: 'João Silva'
     },
     {
       id: 2,
-      nome: 'Residencial Azul',
+      nome: 'Condomínio Verde',
       endereco: 'Av. Principal, 456',
       status: 'ativo',
-      total_unidades: 80,
+      total_unidades: 30,
       responsavel: 'Maria Santos'
     }
   ]
 
   const handleCreate = () => {
     setIsCreateModalOpen(true)
+  }
+
+  const handleCreateUsuario = async (data: any) => {
+    setIsLoading(true)
+    try {
+      // TODO: Implementar chamada para API
+      console.log('Criando usuário:', data)
+      setIsCreateModalOpen(false)
+      // Recarregar dados
+    } catch (error) {
+      console.error('Erro ao criar usuário:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleEditUsuario = async (data: any) => {
+    setIsLoading(true)
+    try {
+      // TODO: Implementar chamada para API
+      console.log('Editando usuário:', data)
+      setIsEditModalOpen(false)
+      setSelectedUsuario(null)
+      // Recarregar dados
+    } catch (error) {
+      console.error('Erro ao editar usuário:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDeleteUsuario = async (usuario: any) => {
+    if (confirm('Tem certeza que deseja excluir este usuário?')) {
+      setIsLoading(true)
+      try {
+        // TODO: Implementar chamada para API
+        console.log('Excluindo usuário:', usuario.id)
+        // Recarregar dados
+      } catch (error) {
+        console.error('Erro ao excluir usuário:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+  }
+
+  const openEditModal = (usuario: any) => {
+    setSelectedUsuario(usuario)
+    setIsEditModalOpen(true)
+  }
+
+  const openViewModal = (usuario: any) => {
+    setSelectedUsuario(usuario)
+    setIsViewModalOpen(true)
   }
 
   const getStatusColor = (status: string) => {
@@ -97,7 +173,7 @@ export default function AdminPage() {
         </div>
         <Button onClick={handleCreate} className="w-full sm:w-auto">
           <Plus className="w-4 h-4 mr-2" />
-          Adicionar
+          Adicionar Usuário
         </Button>
       </div>
 
@@ -199,9 +275,10 @@ export default function AdminPage() {
                 <Table.Row>
                   <Table.Head>Nome</Table.Head>
                   <Table.Head>Email</Table.Head>
-                  <Table.Head>Cargo</Table.Head>
+                  <Table.Head>Telefone</Table.Head>
+                  <Table.Head>Função</Table.Head>
+                  <Table.Head>Condomínio</Table.Head>
                   <Table.Head>Status</Table.Head>
-                  <Table.Head>Último Acesso</Table.Head>
                   <Table.Head>Ações</Table.Head>
                 </Table.Row>
               </Table.Header>
@@ -210,19 +287,51 @@ export default function AdminPage() {
                   <Table.Row key={usuario.id}>
                     <Table.Cell className="font-medium">{usuario.nome}</Table.Cell>
                     <Table.Cell>{usuario.email}</Table.Cell>
-                    <Table.Cell>{usuario.cargo}</Table.Cell>
+                    <Table.Cell>{usuario.telefone}</Table.Cell>
                     <Table.Cell>
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(usuario.status)}`}>
-                        {getStatusLabel(usuario.status)}
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        usuario.role === 'admin' ? 'bg-purple-100 text-purple-800' :
+                        usuario.role === 'gerente' ? 'bg-blue-100 text-blue-800' :
+                        usuario.role === 'guarda' ? 'bg-green-100 text-green-800' :
+                        'bg-gray-100 text-gray-800'
+                      }`}>
+                        {usuario.role === 'admin' ? 'Administrador' :
+                         usuario.role === 'gerente' ? 'Gerente' :
+                         usuario.role === 'guarda' ? 'Guarda' : 'Usuário'}
+                      </span>
+                    </Table.Cell>
+                    <Table.Cell>{usuario.condominio.nome}</Table.Cell>
+                    <Table.Cell>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(usuario.ativo ? 'ativo' : 'inativo')}`}>
+                        {getStatusLabel(usuario.ativo ? 'ativo' : 'inativo')}
                       </span>
                     </Table.Cell>
                     <Table.Cell>
-                      {new Date(usuario.ultimo_acesso).toLocaleDateString('pt-BR')}
-                    </Table.Cell>
-                    <Table.Cell>
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm">Editar</Button>
-                        <Button variant="outline" size="sm" className="text-red-600">Excluir</Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => openViewModal(usuario)}
+                          className="h-8 w-8 p-0"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => openEditModal(usuario)}
+                          className="h-8 w-8 p-0"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteUsuario(usuario)}
+                          className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
                       </div>
                     </Table.Cell>
                   </Table.Row>
@@ -357,22 +466,89 @@ export default function AdminPage() {
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        title="Adicionar Novo Item"
+        title="Novo Usuário"
         size="lg"
       >
-        <div className="space-y-4">
-          <p className="text-gray-600">
-            Formulário será implementado na próxima iteração
-          </p>
-          <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setIsCreateModalOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={() => setIsCreateModalOpen(false)}>
-              Salvar
-            </Button>
+        <UsuarioForm
+          usuario={null}
+          onSubmit={handleCreateUsuario}
+          onCancel={() => setIsCreateModalOpen(false)}
+          isLoading={isLoading}
+        />
+      </Modal>
+
+      {/* Modal de Edição */}
+      <Modal
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false)
+          setSelectedUsuario(null)
+        }}
+        title="Editar Usuário"
+        size="lg"
+      >
+        <UsuarioForm
+          usuario={selectedUsuario}
+          onSubmit={handleEditUsuario}
+          onCancel={() => setIsEditModalOpen(false)}
+          isLoading={isLoading}
+        />
+      </Modal>
+
+      {/* Modal de Visualização */}
+      <Modal
+        isOpen={isViewModalOpen}
+        onClose={() => {
+          setIsViewModalOpen(false)
+          setSelectedUsuario(null)
+        }}
+        title="Detalhes do Usuário"
+        size="lg"
+      >
+        {selectedUsuario && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Nome</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedUsuario.nome}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Email</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedUsuario.email}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Telefone</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedUsuario.telefone}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">CPF</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedUsuario.cpf}</p>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Função</h3>
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  selectedUsuario.role === 'admin' ? 'bg-purple-100 text-purple-800' :
+                  selectedUsuario.role === 'gerente' ? 'bg-blue-100 text-blue-800' :
+                  selectedUsuario.role === 'guarda' ? 'bg-green-100 text-green-800' :
+                  'bg-gray-100 text-gray-800'
+                }`}>
+                  {selectedUsuario.role === 'admin' ? 'Administrador' :
+                   selectedUsuario.role === 'gerente' ? 'Gerente' :
+                   selectedUsuario.role === 'guarda' ? 'Guarda' : 'Usuário'}
+                </span>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-gray-500">Condomínio</h3>
+                <p className="text-lg font-medium text-gray-900">{selectedUsuario.condominio.nome}</p>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Button onClick={() => setIsViewModalOpen(false)}>
+                Fechar
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </Modal>
     </div>
   )
